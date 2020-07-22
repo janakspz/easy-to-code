@@ -25,6 +25,10 @@ It's Tested in Chrome, Firefox, Safari, EDGE & Internet Explorer. As well as tes
     </picture>
 </div>
 ```
+I have used loading lazy tag which will help to decrease page initial load. It did not support all browsers but mostly browser are covered, So it's a plus point for improve page speed
+```html
+<img src="https://dummyimage.com/375x300/FF0000/fff&text=Mobile" alt="Testing" loading="lazy">
+```
 
 ## Script
 
@@ -61,6 +65,8 @@ $(document).ready(function () {
       })
 ```
 
+
+
 ## Style/CSS
 
 ```css
@@ -95,4 +101,8 @@ $(document).ready(function () {
   } 
 }
 ```
+
+**You can check here how many browsers are supported: https://caniuse.com/#search=picture**
+
+**THANK YOU**
 
