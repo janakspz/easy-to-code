@@ -13,19 +13,57 @@
   <div class="picWrap">
     <picture>
       <source media="(min-width:1200px)"
-        srcset="https://dummyimage.com/1400x800/EE6363/fff&text=Desktop"
+        srcset="https://dummyimage.com/1400x800/EE6363/fff&text=Desktop-A"
         data-class="imgXL" >
       <source media="(min-width:1024px)"
-        srcset="https://dummyimage.com/1024x700/330000/fff&text=Big-Tablet"
+        srcset="https://dummyimage.com/1024x700/330000/fff&text=Big-Tablet-A"
         data-class="imgLG">
       <source media="(min-width:768px)"
-        srcset="https://dummyimage.com/768x600/8B0000/fff&text=Small-Tablet"
+        srcset="https://dummyimage.com/768x600/8B0000/fff&text=Small-Tablet-A"
         data-class="imgMD">
       <source media="(min-width:320px)"
-        srcset="https://dummyimage.com/375x300/FF0000/fff&text=Mobile"
+        srcset="https://dummyimage.com/375x300/FF0000/fff&text=Mobile-A"
         data-class="imgSM">
       <img
-        src="https://dummyimage.com/375x300/FF0000/fff&text=Mobile"
+        src="https://dummyimage.com/375x300/FF0000/fff&text=Mobile-A"
+        alt="Testing" loading="lazy">
+    </picture>
+  </div>
+  <div class="picWrap">
+    <picture>
+      <source media="(min-width:1200px)"
+        srcset="https://dummyimage.com/1400x800/EE6363/fff&text=Desktop-B"
+        data-class="imgXL" >
+      <source media="(min-width:1024px)"
+        srcset="https://dummyimage.com/1024x700/330000/fff&text=Big-Tablet-B"
+        data-class="imgLG">
+      <source media="(min-width:768px)"
+        srcset="https://dummyimage.com/768x600/8B0000/fff&text=Small-Tablet-B"
+        data-class="imgMD">
+      <source media="(min-width:320px)"
+        srcset="https://dummyimage.com/375x300/FF0000/fff&text=Mobile-B"
+        data-class="imgSM">
+      <img
+        src="https://dummyimage.com/375x300/FF0000/fff&text=Mobile-B"
+        alt="Testing" loading="lazy">
+    </picture>
+  </div>
+  <div class="picWrap">
+    <picture>
+      <source media="(min-width:1200px)"
+        srcset="https://dummyimage.com/1400x800/EE6363/fff&text=Desktop-C"
+        data-class="imgXL" >
+      <source media="(min-width:1024px)"
+        srcset="https://dummyimage.com/1024x700/330000/fff&text=Big-Tablet-C"
+        data-class="imgLG">
+      <source media="(min-width:768px)"
+        srcset="https://dummyimage.com/768x600/8B0000/fff&text=Small-Tablet-C"
+        data-class="imgMD">
+      <source media="(min-width:320px)"
+        srcset="https://dummyimage.com/375x300/FF0000/fff&text=Mobile-C"
+        data-class="imgSM">
+      <img
+        src="https://dummyimage.com/375x300/FF0000/fff&text=Mobile-C"
         alt="Testing" loading="lazy">
     </picture>
   </div>
@@ -34,6 +72,7 @@
     .picWrap {
       display: block;
       width: 100%;
+      max-width: 300px;
       height: auto;
     }
     .picWrap > .wrapImg{
@@ -82,18 +121,23 @@
         var k = msieversion();
         //Fallback if IE then we change markup for responsive images
         if (k) {
-          var getImgArray = '';
-          $('.picWrap picture').each(function () {
-            var getImgAlt = $(this).find('img').attr('alt');
-            $(this).find('source').each(function (j) {
+          $('.picWrap').each(function () {
+            returnImgArray($(this));
+          });
+
+          function returnImgArray(selector){
+            var getImgAlt = selector.find('picture img').attr('alt');
+            selector.find('picture img').remove();
+            selector.find('picture source').each(function (index) {
               var getImgUrl = $(this).attr('srcset');
               var getImgClass = $(this).attr('data-class');
-              getImgArray += '<img src="' + getImgUrl + '" alt="' + getImgAlt + '" class="wrapImg ' + getImgClass + '">';
+              var getImgArray = '<img src="' + getImgUrl + '" alt="' + getImgAlt + '" class="wrapImg ' + getImgClass + '">';
+              selector.append(getImgArray);
             });
-          });
-          $('.picWrap').html(getImgArray);
+            selector.find('picture source').remove();
+          };
         }
-      })
+    });
   </script>
 
 </body>

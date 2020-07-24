@@ -34,35 +34,40 @@ I have used loading lazy tag which will help to decrease page initial load. It d
 
 ```javascript
 $(document).ready(function () {
-        //Funtion to check if browser is IE
-        function msieversion() {
-          var ua = window.navigator.userAgent;
-          var msie = ua.indexOf("MSIE ");
-          if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))  // If Internet Explorer, return version number
-          {
-            return true
-            //alert(parseInt(ua.substring(msie + 5, ua.indexOf(".", msie))));
-          }
-          else  // If another browser, return 0
-          {
-            return false
-          }
-        }
-        var k = msieversion();
-        //Fallback if IE then we change markup for responsive images
-        if (k) {
-          var getImgArray = '';
-          $('.picWrap picture').each(function () {
-            var getImgAlt = $(this).find('img').attr('alt');
-            $(this).find('source').each(function (j) {
-              var getImgUrl = $(this).attr('srcset');
-              var getImgClass = $(this).attr('data-class');
-              getImgArray += '<img src="' + getImgUrl + '" alt="' + getImgAlt + '" class="wrapImg ' + getImgClass + '">';
-            });
-          });
-          $('.picWrap').html(getImgArray);
-        }
-      })
+    //Funtion to check if browser is IE
+    function msieversion() {
+      var ua = window.navigator.userAgent;
+      var msie = ua.indexOf("MSIE ");
+      if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))  // If Internet Explorer, return version number
+      {
+        return true
+        //alert(parseInt(ua.substring(msie + 5, ua.indexOf(".", msie))));
+      }
+      else  // If another browser, return 0
+      {
+        return false
+      }
+    }
+    var k = msieversion();
+    //Fallback if IE then we change markup for responsive images
+    if (k) {
+      $('.picWrap').each(function () {
+        returnImgArray($(this));
+      });
+
+      function returnImgArray(selector){
+        var getImgAlt = selector.find('picture img').attr('alt');
+        selector.find('picture img').remove();
+        selector.find('picture source').each(function (index) {
+          var getImgUrl = $(this).attr('srcset');
+          var getImgClass = $(this).attr('data-class');
+          var getImgArray = '<img src="' + getImgUrl + '" alt="' + getImgAlt + '" class="wrapImg ' + getImgClass + '">';
+          selector.append(getImgArray);
+        });
+        selector.find('picture source').remove();
+      };
+    }
+});
 ```
 
 
